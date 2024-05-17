@@ -1,0 +1,35 @@
+
+POST {{url}}/security/auth/register
+
+{
+    "username": "PatrickUser2",
+    "password": "1234"
+}
+###
+
+POST http://localhost:7070/api/security/auth/register
+
+{
+    "username": "PatrickUser2",
+    "password": "1234"
+}
+###
+POST http://localhost:7070/api/security/auth/login
+
+{
+    "username": "PatrickUser2",
+    "password": "1234"
+}
+###
+GET http://localhost:7007/api/protected/protected/user
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJQYXRyaWNrIiwic3ViIjoiUGF0cmlja1VzZXIiLCJleHAiOjE3MTI4NDI3NTAsInJvbGVzIjoidXNlciIsInVzZXJuYW1lIjoiUGF0cmlja1VzZXIifQ.SveaYu0TwVoMi0MhiH_jIBhASBlSPMOzKjtOPzYsW3U
+###
+GET http://localhost:7007/api/protected/protected/admin
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJQYXRyaWNrIiwic3ViIjoiUGF0cmlja1VzZXIiLCJleHAiOjE3MTI4NDI3NTAsInJvbGVzIjoidXNlciIsInVzZXJuYW1lIjoiUGF0cmlja1VzZXIifQ.SveaYu0TwVoMi0MhiH_jIBhASBlSPMOzKjtOPzYsW3U
+###
+GET http://localhost:7007/api/memoryStorage
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiO
+###
+GET http://localhost:7007/api/memoryStorage/getbyid/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiO
+###
