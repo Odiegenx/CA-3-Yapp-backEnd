@@ -7,8 +7,8 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import restSecrurity.model.Dude;
-import restSecrurity.persistance.Role;
-import restSecrurity.persistance.User;
+import restSecrurity.persistance.*;
+import restSecrurity.persistance.Thread;
 
 import java.util.Properties;
 
@@ -23,7 +23,7 @@ public class HibernateConfig {
 
             Properties props = new Properties();
 
-            props.put("hibernate.connection.url", "jdbc:postgresql://localhost:5432/codesetup?currentSchema=public");
+            props.put("hibernate.connection.url", "jdbc:postgresql://localhost:5432/yappdb?currentSchema=public");
             props.put("hibernate.connection.username", "postgres");
             props.put("hibernate.connection.password", "postgres");
             props.put("hibernate.show_sql", "false"); // show sql in console
@@ -99,7 +99,11 @@ public class HibernateConfig {
         // configuration.addAnnotatedClass(<YOUR ENTITY>.class);
         configuration.addAnnotatedClass(Role.class);
         configuration.addAnnotatedClass(User.class);
-        configuration.addAnnotatedClass(Dude.class);
+        //configuration.addAnnotatedClass(Dude.class);
+        configuration.addAnnotatedClass(Category.class);
+        configuration.addAnnotatedClass(Post.class);
+        configuration.addAnnotatedClass(Reply.class);
+        configuration.addAnnotatedClass(Thread.class);
     }
 
     private static EntityManagerFactory getEntityManagerFactoryConfigNormal() {

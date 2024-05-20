@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.security.Permission;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,6 +27,12 @@ public class User {
             @JoinColumn(name = "role_name",referencedColumnName = "name")})
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Post> posts = new HashSet<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Thread> threads = new HashSet<>();
 
     public User(String username,String password){
         this.Username=username;
