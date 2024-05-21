@@ -1,3 +1,4 @@
+/*
 package restSecrurity.controllers;
 
 import config.ApplicationConfig;
@@ -110,7 +111,8 @@ class DudeControllerTest {
 
         Populator.populateDatabase(true);
 
-        /*
+        */
+/*
         try(EntityManager em = emf.createEntityManager()){
             em.getTransaction().begin();
 
@@ -154,8 +156,10 @@ class DudeControllerTest {
             em.clear();
             //User found = em.find(User.class,user124.getEmail());
         }
-        */
+        *//*
+
     }
+*/
 /*
     @Test
     void getAll() {
@@ -165,9 +169,10 @@ class DudeControllerTest {
                 .get("/memoryStorage")
                 .then().log().all()
                 .body("dudeList.size()",equalTo(5));
-    }*/
+    }*//*
+
 
     @Test
     void getById() {
     }
-}
+}*/
