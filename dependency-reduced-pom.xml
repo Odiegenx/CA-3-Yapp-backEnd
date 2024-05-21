@@ -53,7 +53,7 @@
         <configuration>
           <transformers>
             <transformer>
-              <mainClass>dk/lyngby/Main</mainClass>
+              <mainClass>restSecrurity/Main</mainClass>
             </transformer>
           </transformers>
           <filters>
