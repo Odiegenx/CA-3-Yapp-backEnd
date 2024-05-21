@@ -20,6 +20,10 @@ public class SecurityController {
     private static UserDAO userDAO;
     private static SecurityController instance;
 
+    private SecurityController() {
+        // Private constructor to enforce singleton pattern
+    }
+
     public static SecurityController getInstance(Boolean isTesting) {
         if (instance == null) {
             instance = new SecurityController();

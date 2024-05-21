@@ -26,6 +26,7 @@ public class DudeController {
         }
         return instance;
     }
+
     public Handler getAll() {
         return ctx -> {
             List<Dude> dudeList = null;

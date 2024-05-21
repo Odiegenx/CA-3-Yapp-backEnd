@@ -22,6 +22,7 @@ public abstract class DAO<T, D> implements iDAO<T,D> {
             return em.find(objectClass,id);
         }
     }
+
     public T create(T t) {
         try(EntityManager em = emf.createEntityManager()) {
             em.getTransaction().begin();
@@ -30,6 +31,7 @@ public abstract class DAO<T, D> implements iDAO<T,D> {
             return t;
         }
     }
+
     public T update(T t, D id) {
         try(EntityManager em = emf.createEntityManager()) {
             em.getTransaction().begin();
