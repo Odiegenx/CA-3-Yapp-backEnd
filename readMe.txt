@@ -13,3 +13,4 @@ yapp.wintherdev.com
 | /deleteThread | Takes an Id | Deletes from database |
 | /sortThreadsByCategory | Takes a category | Sorts given list/array and returns a sorted list/array |
 | /getThreads | Pagination endpoint | ? |
+| /createPostByThreadId | Takes post request | returns a new project |
