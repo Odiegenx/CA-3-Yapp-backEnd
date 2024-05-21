@@ -10,4 +10,5 @@ public interface iDAO<T,D> {
     public T update(T t,D id) throws ApiException;
     public T delete(D id) throws ApiException;
     public List<T> getAll() throws ApiException;
+
 }

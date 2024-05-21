@@ -108,7 +108,7 @@ class DudeControllerTest {
     @BeforeEach
     void setUp() {
 
-        Populator.populateDatabase(true,true);
+        Populator.populateDatabase(true);
 
         /*
         try(EntityManager em = emf.createEntityManager()){
