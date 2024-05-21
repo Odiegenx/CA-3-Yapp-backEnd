@@ -1,7 +1,8 @@
 yapp.wintherdev.com
 
-|Endpoints| Takes | Return|
-|--|--|--|
+
+| Endpoints | Takes | Return |
+|:--|:--|:--|
 | /login | Credentials | Return token | 
 | /register | Credentials | Return token | 
 | /getAllThreads | None | Returns all threads |
@@ -11,4 +12,4 @@ yapp.wintherdev.com
 | /deletePost | Takes an Id | Deletes post or makes blank | 
 | /deleteThread | Takes an Id | Deletes from database |
 | /sortThreadsByCategory | Takes a category | Sorts given list/array and returns a sorted list/array |
-| /getThreads | Pagination endpoint | 
+| /getThreads | Pagination endpoint | ? |
