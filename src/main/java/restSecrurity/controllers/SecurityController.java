@@ -74,10 +74,10 @@ public class SecurityController {
             ObjectNode returnObject = objectMapper.createObjectNode();
             try {
                 UserDTO userInput = ctx.bodyAsClass(UserDTO.class);
-                User toPersist = new User(userInput.getUsername(),userInput.getPassword());
+                User toPersist = new User(userInput.getUsername(),userInput.getPassword(), userInput.getEmail());
                 User created = userDAO.create(toPersist);
                 String token = TokenUtils.createToken(new UserDTO(created));
-                ctx.status(HttpStatus.CREATED).json(new TokenDTO(token, created.getUsername(),created.rolesToString()));
+                ctx.status(HttpStatus.CREATED).json(new TokenDTO(token, created.getUsername(),created.rolesToString(), created.getEmail()));
             } catch (EntityExistsException e) {
                 ctx.status(HttpStatus.UNPROCESSABLE_CONTENT);
                 ctx.json(returnObject.put("msg", "User already exists"));
@@ -95,7 +95,7 @@ public class SecurityController {
 
                 User verifiedUserEntity = userDAO.verifyUser(user.getUsername(), user.getPassword());
                 String token = TokenUtils.createToken(new UserDTO(verifiedUserEntity));
-                ctx.status(200).json(new TokenDTO(token, verifiedUserEntity.getUsername(),verifiedUserEntity.rolesToString()));
+                ctx.status(200).json(new TokenDTO(token, verifiedUserEntity.getUsername(),verifiedUserEntity.rolesToString(), verifiedUserEntity.getEmail()));
             } catch (EntityNotFoundException | ValidationException e) {
                 ctx.status(401);
                 System.out.println(e.getMessage());

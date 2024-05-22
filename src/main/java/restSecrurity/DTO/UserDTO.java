@@ -16,11 +16,13 @@ public class UserDTO {
     private String username;
     private String password;
     private Set<String> roles;
+    private String email;
 
     public UserDTO(User user){
         this.username = user.getUsername();
         this.password = user.getPassword();
         this.roles = user.getRolesAsString();
+        this.email = user.getEmail();
     }
 
     public UserDTO(String username, Set<String> rolesSet) {

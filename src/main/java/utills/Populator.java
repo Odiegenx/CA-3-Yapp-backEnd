@@ -31,6 +31,7 @@ public class Populator {
                 User user1 = new User();
                 user1.setUsername("patrick@user1.com");
                 user1.setPassword("password123");
+                user1.setEmail("patrick@user1.com");
                 Set<Role> roles = new HashSet<>();
                 roles.add(new Role("user"));
                 user1.setRoles(roles);

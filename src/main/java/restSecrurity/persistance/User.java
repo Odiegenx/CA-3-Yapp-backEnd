@@ -21,6 +21,7 @@ public class User {
     @Id
     private String Username;
     private String password;
+    private String email;
 
     @JoinTable(name = "user_role", joinColumns = {
             @JoinColumn(name = "user_name",referencedColumnName = "username")},inverseJoinColumns = {
@@ -34,18 +35,20 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Thread> threads = new HashSet<>();
 
-    public User(String username,String password){
+    public User(String username,String password, String email){
         this.Username=username;
         this.password= password;
         //addRole(new Role("user"));
         String salt = BCrypt.gensalt();
         this.password = BCrypt.hashpw(password,salt);
+        this.email = email;
     }
-    public User(String username,String password, Role roles){
+    public User(String username,String password, Role roles, String email){
         this.Username=username;
         String salt = BCrypt.gensalt();
         this.password = BCrypt.hashpw(password,salt);
         addRole(roles);
+        this.email = email;
     }
     public void addRole(Role role){
         if(role != null && !roles.contains(role)){
