@@ -24,6 +24,9 @@ public class Thread {
     private String title;
 
     @Column(nullable = false)
+    private String content;
+
+    @Column(nullable = false)
     private LocalDateTime createdDate;
 
     @ManyToOne
@@ -36,5 +39,13 @@ public class Thread {
 
     @OneToMany(mappedBy = "thread", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Post> posts;
+
+    public Thread(String title, String content, User user, Category category) {
+        this.title = title;
+        this.content = content;
+        this.user = user;
+        this.category = category;
+        this.createdDate = LocalDateTime.now();
+    }
 }
 

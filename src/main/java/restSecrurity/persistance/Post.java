@@ -40,6 +40,15 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "parent_reply_id")
     private Reply parentReply;
+
+    public Post(String content, User user, Thread thread, Reply reply, Reply parentReply) {
+        this.content = content;
+        this.user = user;
+        this.thread = thread;
+        this.reply = reply;
+        this.parentReply = parentReply;
+        this.createdDate = LocalDateTime.now();
+    }
 }
 
 

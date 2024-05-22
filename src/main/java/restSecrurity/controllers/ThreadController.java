@@ -2,13 +2,18 @@ package restSecrurity.controllers;
 
 import io.javalin.http.Handler;
 import jakarta.persistence.EntityManager;
+import restSecrurity.DOA.databaseDAO.CategoryDAO;
 import restSecrurity.DOA.databaseDAO.PostDAO;
 import restSecrurity.DOA.databaseDAO.ThreadDAO;
+import restSecrurity.DOA.databaseDAO.UserDAO;
 import restSecrurity.DOA.iDAO;
 import restSecrurity.DTO.PostDTO;
 import restSecrurity.DTO.ThreadDTO;
+import restSecrurity.exceptions.ApiException;
+import restSecrurity.persistance.Category;
 import restSecrurity.persistance.Post;
 import restSecrurity.persistance.Thread;
+import restSecrurity.persistance.User;
 
 import java.util.List;
 import java.util.Set;
@@ -18,6 +23,8 @@ public class ThreadController {
 
     private static ThreadDAO threadDAO;
     private static PostDAO postDAO;
+    private static UserDAO userDAO;
+    private static CategoryDAO categoryDAO;
     private static ThreadController instance;
 
     private ThreadController() {
@@ -29,6 +36,8 @@ public class ThreadController {
             instance = new ThreadController();
             threadDAO = ThreadDAO.getInstance(isTest);
             postDAO = PostDAO.getInstance(isTest);
+            userDAO = UserDAO.getInstance(isTest);
+            categoryDAO = CategoryDAO.getInstance(isTest);
         }
         return instance;
     }
@@ -52,6 +61,26 @@ public class ThreadController {
         };
     }
 
+    public static Handler createThread() {
+        return ctx -> {
+            try{
+                ThreadDTO toCreateDTO = ctx.bodyAsClass(ThreadDTO.class);
+
+                User threadAuthor = userDAO.getById(toCreateDTO.getUserName());
+                Category category = categoryDAO.getById(Integer.parseInt(toCreateDTO.getCategory()));
+
+                Thread toCreate = new Thread(toCreateDTO.getTitle(), toCreateDTO.getContent(), threadAuthor,category);
+
+                Thread created = threadDAO.create(toCreate);
+                ThreadDTO createdThreadDTO = new ThreadDTO(created);
+                ctx.json(createdThreadDTO);
+            }catch(Exception e){
+                ctx.status(400);
+                throw new ApiException(500,"Error while getting all threads: " + e.getMessage());
+            }
+        };
+    }
+
     public Handler getThreads() {
         return ctx -> {
             try {
@@ -63,14 +92,19 @@ public class ThreadController {
                 ctx.attribute("error",e.getMessage());
                 ctx.status(400);
             }
-
         };
     }
 
     public Handler getAllThreads() {
         return ctx -> {
-            List<ThreadDTO> threadDTOS = threadDAO.getAll().stream().map(ThreadDTO::new).toList();
-            ctx.json(threadDTOS);
+            try {
+                List<ThreadDTO> threadDTOS = threadDAO.getAll().stream().map(ThreadDTO::new).toList();
+                ctx.json(threadDTOS);
+            }catch (Exception e) {
+                ctx.status(500);
+                ctx.attribute("error",e.getMessage());
+                throw new ApiException(500,"Error while getting all threads: " + e.getMessage());
+            }
         };
     }
 
@@ -91,9 +125,15 @@ public class ThreadController {
 
     public Handler getByThreadsCategory() {
         return ctx -> {
-            String category = ctx.pathParam("category");
-            List<ThreadDTO> threadDTOS = threadDAO.getByCategory(category);
-            ctx.json(threadDTOS);
+            try {
+                String category = ctx.pathParam("category");
+                List<ThreadDTO> threadDTOS = threadDAO.getByCategory(category);
+                ctx.json(threadDTOS);
+            }catch (Exception e) {
+                ctx.status(500);
+                ctx.attribute("error",e.getMessage());
+                throw new ApiException(500,"Error while getting threads by Category: " + e.getMessage());
+            }
         };
     }
 }

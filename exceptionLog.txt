@@ -1,1 +1,52 @@
 Bad RequestStatus code: 400 | 2024-04-12T10:31:11.760063800
+unable to create new postUnrecognized field "userId" (class restSecrurity.persistance.Post), not marked as ignorable (7 known properties: "parentReply", "createdDate", "content", "thread", "id", "user", "reply"])
+ at [Source: (String)"{
+    "content": "This is an example post content.",
+    "createdDate": "2024-05-21T12:00:00",
+    "userId": 1,
+    "threadId": 1,
+    "replyId": null,
+    "parentReplyId": null
+}"; line: 4, column: 16] (through reference chain: restSecrurity.persistance.Post["userId"])Status code: 500 | 2024-05-22T10:37:36.200719900
+unable to create new postUnexpected character ('"' (code 34)): was expecting comma to separate Object entries
+ at [Source: (String)"{
+    "content": "This is an example post content."
+    "userId": 1,
+    "threadId": 1,
+    "replyId": null,
+    "parentReplyId": null
+}"; line: 3, column: 6]Status code: 500 | 2024-05-22T10:49:31.734545200
+unable to create new postUnrecognized field "userId" (class restSecrurity.DTO.PostDTO), not marked as ignorable (7 known properties: "threadId", "createdDate", "content", "id", "replyId", "userName", "parentReplyId"])
+ at [Source: (String)"{
+    "content": "This is an example post content.",
+    "userId": 1,
+    "threadId": 1,
+    "replyId": null,
+    "parentReplyId": null
+}"; line: 3, column: 16] (through reference chain: restSecrurity.DTO.PostDTO["userId"])Status code: 500 | 2024-05-22T10:49:43.062355300
+unable to create new postUnrecognized token 'PatrickUser6': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
+ at [Source: (String)"{
+    "content": "This is an example post content.",
+    "userName": PatrickUser6,
+    "threadId": 1,
+    "replyId": null,
+    "parentReplyId": null
+}"; line: 3, column: 29]Status code: 500 | 2024-05-22T10:50:11.491477600
+unable to create new postid to load is required for loadingStatus code: 500 | 2024-05-22T10:52:11.370139900
+unable to create new postnot-null property references a null or transient value : restSecrurity.persistance.Post.userStatus code: 500 | 2024-05-22T12:07:46.629416
+Error while getting all threads: Unrecognized token 'PatrickUser2': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
+ at [Source: (String)"{
+    "title": "Example Thread Title",
+    "content": "This is an example content for the thread.",
+    "category": 1,
+    "userName": PatrickUser2
+}"; line: 5, column: 29]Status code: 500 | 2024-05-22T12:26:11.364519500
+Error while getting all threads: Unrecognized token 'PatrickUser2': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
+ at [Source: (String)"{
+    "title": "Example Thread Title",
+    "content": "This is an example content for the thread.",
+    "category": 1,
+    "userName": PatrickUser2
+}"; line: 5, column: 29]Status code: 500 | 2024-05-22T12:28:52.832785200
+Error while getting all threads: not-null property references a null or transient value : restSecrurity.persistance.Thread.categoryStatus code: 500 | 2024-05-22T12:28:52.850236300
+Error while getting all threads: not-null property references a null or transient value : restSecrurity.persistance.Thread.categoryStatus code: 500 | 2024-05-22T12:29:02.321653400

@@ -16,11 +16,13 @@ import java.util.stream.Collectors;
 public class ThreadDTO {
     private Integer id;
     private String title;
+    private String content;
     private LocalDateTime createdDate;
     private Set<PostDTO> posts;
     private String userName;
     private Set<String> roleNames;
     private String category;
+    private int categoryId;
 
     public ThreadDTO(Thread thread) {
         User user = thread.getUser();
@@ -29,6 +31,7 @@ public class ThreadDTO {
                 .collect(Collectors.toSet());
         this.setId(thread.getId());
         this.setTitle(thread.getTitle());
+        this.setContent(thread.getContent());
         this.setCreatedDate(thread.getCreatedDate());
         this.setUserName(user.getUsername());
         this.setRoleNames(roleNames);

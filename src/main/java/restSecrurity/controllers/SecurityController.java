@@ -77,12 +77,13 @@ public class SecurityController {
                 User toPersist = new User(userInput.getUsername(),userInput.getPassword());
                 User created = userDAO.create(toPersist);
                 String token = TokenUtils.createToken(new UserDTO(created));
-                ctx.status(HttpStatus.CREATED).json(new TokenDTO(token, userInput.getUsername()));
+                ctx.status(HttpStatus.CREATED).json(new TokenDTO(token, created.getUsername(),created.rolesToString()));
             } catch (EntityExistsException e) {
                 ctx.status(HttpStatus.UNPROCESSABLE_CONTENT);
                 ctx.json(returnObject.put("msg", "User already exists"));
             }catch (ApiException e){
-                // TODO
+                ctx.status(500);
+                ctx.attribute("error", e.getMessage());
             }
     }
 
@@ -100,7 +101,8 @@ public class SecurityController {
                 System.out.println(e.getMessage());
                 ctx.json(returnObject.put("msg", e.getMessage()));
             }catch (ApiException e){
-                // TODO
+                ctx.status(500);
+                ctx.attribute("error", e.getMessage());
             }
     }
     public static void authenticate(Context ctx) {

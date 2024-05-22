@@ -20,6 +20,13 @@ public class Populator {
             em.getTransaction().begin();
 
             try {
+                Role user = new Role();
+                Role admin = new Role();
+                user.setName("user");
+                admin.setName("admin");
+                em.persist(user);
+                em.persist(admin);
+
                 // Initialize some users
                 User user1 = new User();
                 user1.setUsername("patrick@user1.com");
@@ -32,60 +39,43 @@ public class Populator {
                 // Initialize some categories
                 Category category1 = new Category();
                 category1.setName("General Discussion");
+                Category category2 = new Category();
+                category2.setName("Technical Support");
+
                 em.persist(category1);
+                em.persist(category2);
 
-                // Initialize some threads
-                Thread thread1 = new Thread();
-                thread1.setTitle("Welcome to the forum");
-                thread1.setCreatedDate(LocalDateTime.now());
-                thread1.setUser(user1);
-                thread1.setCategory(category1);
+                // Create Threads
+                Thread thread1 = new Thread(null, "Welcome to the forum", "This is the first thread", LocalDateTime.now(), user1, category1, new HashSet<>());
+                Thread thread2 = new Thread(null, "Need help with Java", "I'm stuck with a problem", LocalDateTime.now(), user1, category2, new HashSet<>());
+
                 em.persist(thread1);
-
-                Thread thread2 = new Thread();
-                thread2.setTitle("hvaa hEr Er FeDt Ik?");
-                thread2.setCreatedDate(LocalDateTime.now());
-                thread2.setUser(user1);
-                thread2.setCategory(category1);
                 em.persist(thread2);
 
-                Thread thread3 = new Thread();
-                thread3.setTitle("NEEEJ!");
-                thread3.setCreatedDate(LocalDateTime.now());
-                thread3.setUser(user1);
-                thread3.setCategory(category1);
-                em.persist(thread3);
+                // Create Posts
+                Post post1 = new Post("This is a post in the first thread", user1, thread1, null, null);
+                Post post2 = new Post("This is another post in the first thread", user1, thread1, null, null);
+                Post post3 = new Post("This is a post in the second thread", user1, thread2, null, null);
 
-                // Initialize some posts
-                Post post1 = new Post();
-                post1.setContent("Hello everyone!");
-                post1.setCreatedDate(LocalDateTime.now());
-                post1.setUser(user1);
-                post1.setThread(thread1);
                 em.persist(post1);
-
-                Post post2 = new Post();
-                post2.setContent("Hello everyone!x2");
-                post2.setCreatedDate(LocalDateTime.now());
-                post2.setUser(user1);
-                post2.setThread(thread2);
                 em.persist(post2);
+                em.persist(post3);
 
-                // Initialize a reply as a new thread of posts
-                Post replyPost = new Post();
-                replyPost.setContent("Welcome, John!");
-                replyPost.setCreatedDate(LocalDateTime.now());
-                replyPost.setUser(user1);
-                replyPost.setThread(thread1);
+                // Create Reply and associate with posts
+                Reply reply1 = new Reply();
+                em.persist(reply1);
 
-                Reply reply = new Reply();
-                reply.setParentPost(post1);
-                reply.setPosts(new HashSet<>());
-                reply.getPosts().add(replyPost);
-                replyPost.setReply(reply);
+                Post replyPost1 = new Post("This is a reply to the second post in the first thread", user1, thread1, reply1, null);
+                em.persist(replyPost1);
 
-                em.persist(reply);
-                em.persist(replyPost);
+                reply1.setParentPost(replyPost1);
+                em.persist(reply1);
+
+                // Add posts to threads
+                thread1.getPosts().add(post1);
+                thread1.getPosts().add(post2);
+                thread1.getPosts().add(replyPost1);
+                thread2.getPosts().add(post3);
 
                 em.getTransaction().commit();
             } catch (Exception e) {

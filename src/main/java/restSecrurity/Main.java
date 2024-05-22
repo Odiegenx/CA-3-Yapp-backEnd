@@ -13,7 +13,6 @@ import utills.Populator;
 public class Main {
     public static void main(String[] args) {
         //Populator.populateDatabase(false);
-        // hey
         startServer(7070);
     }
     private static void startServer(int port) {

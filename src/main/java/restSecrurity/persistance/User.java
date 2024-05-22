@@ -37,6 +37,7 @@ public class User {
     public User(String username,String password){
         this.Username=username;
         this.password= password;
+        //addRole(new Role("user"));
         String salt = BCrypt.gensalt();
         this.password = BCrypt.hashpw(password,salt);
     }
