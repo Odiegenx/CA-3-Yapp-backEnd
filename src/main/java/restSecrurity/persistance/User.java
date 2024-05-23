@@ -19,8 +19,10 @@ import java.util.Set;
 @NoArgsConstructor
 public class User {
     @Id
+    @Column(unique = true, nullable = false)
     private String Username;
     private String password;
+    @Column(unique = true, nullable = false)
     private String email;
 
     @JoinTable(name = "user_role", joinColumns = {
