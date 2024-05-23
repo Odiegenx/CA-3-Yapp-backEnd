@@ -1,23 +1,20 @@
 package restSecrurity.controllers;
 
 import io.javalin.http.Handler;
-import jakarta.persistence.EntityManager;
 import restSecrurity.DOA.databaseDAO.CategoryDAO;
 import restSecrurity.DOA.databaseDAO.PostDAO;
 import restSecrurity.DOA.databaseDAO.ThreadDAO;
 import restSecrurity.DOA.databaseDAO.UserDAO;
-import restSecrurity.DOA.iDAO;
 import restSecrurity.DTO.PostDTO;
 import restSecrurity.DTO.ThreadDTO;
 import restSecrurity.exceptions.ApiException;
 import restSecrurity.persistance.Category;
-import restSecrurity.persistance.Post;
 import restSecrurity.persistance.Thread;
 import restSecrurity.persistance.User;
+import utills.Updater;
 
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class ThreadController {
 
@@ -44,9 +41,11 @@ public class ThreadController {
 
     public static Handler editThreadById() {
         return ctx -> {
-            int id = Integer.parseInt(ctx.queryParam("id"));
-            Thread toUpdateWith = ctx.bodyAsClass(Thread.class);
-            Thread updated = threadDAO.update(toUpdateWith,id);
+            int id = Integer.parseInt(ctx.pathParam("id"));
+            ThreadDTO toUpdateWithDTO = ctx.bodyAsClass(ThreadDTO.class);
+            Thread toUpdateFrom = threadDAO.getById(id);
+            Thread toUpdate = Updater.updateFromDTO(toUpdateFrom, toUpdateWithDTO);
+            Thread updated = threadDAO.update(toUpdate,id);
             ThreadDTO updatedThreadDTO = new ThreadDTO(updated);
             ctx.json(updatedThreadDTO);
         };
@@ -54,7 +53,7 @@ public class ThreadController {
 
     public static Handler deleteById() {
         return ctx -> {
-            int id = Integer.parseInt(ctx.queryParam("id"));
+            int id = Integer.parseInt(ctx.pathParam("id"));
             Thread deleted = threadDAO.delete(id);
             ThreadDTO deletedThreadDTO = new ThreadDTO(deleted);
             ctx.json(deletedThreadDTO);

@@ -13,6 +13,7 @@ import restSecrurity.persistance.Post;
 import restSecrurity.persistance.Reply;
 import restSecrurity.persistance.Thread;
 import restSecrurity.persistance.User;
+import utills.Updater;
 
 public class PostController {
     private static iDAO<Post, Integer> postDAO;
@@ -39,9 +40,11 @@ public class PostController {
     public static Handler editPostById() {
         return ctx -> {
             try {
-                int id = Integer.parseInt(ctx.queryParam("id"));
-                Post toUpdateWith = ctx.bodyAsClass(Post.class);
-                Post updated = postDAO.update(toUpdateWith, id);
+                int id = Integer.parseInt(ctx.pathParam("id"));
+                PostDTO toUpdateWithDTO = ctx.bodyAsClass(PostDTO.class);
+                Post toUpdateFrom = postDAO.getById(id);
+                Post toUpdate = Updater.updateFromDTO(toUpdateFrom,toUpdateWithDTO);
+                Post updated = postDAO.update(toUpdate, id);
                 PostDTO updatedThreadDTO = new PostDTO(updated);
                 ctx.json(updatedThreadDTO);
             }catch (Exception e) {
@@ -54,7 +57,7 @@ public class PostController {
     public static Handler deleteById() {
         return ctx -> {
             try {
-                int id = Integer.parseInt(ctx.queryParam("id"));
+                int id = Integer.parseInt(ctx.pathParam("id"));
                 Post deleted = postDAO.delete(id);
                 PostDTO deletedPostDTO = new PostDTO(deleted);
                 ctx.json(deletedPostDTO);

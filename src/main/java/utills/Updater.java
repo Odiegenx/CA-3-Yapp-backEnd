@@ -39,7 +39,7 @@ public class Updater<E,DTO> {
                         }
                     }
                 }catch (Exception e){
-                    return null;
+                    ///
                 }
             }
         }

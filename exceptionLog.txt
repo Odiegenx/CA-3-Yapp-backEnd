@@ -50,3 +50,11 @@ Error while getting all threads: Unrecognized token 'PatrickUser2': was expectin
 }"; line: 5, column: 29]Status code: 500 | 2024-05-22T12:28:52.832785200
 Error while getting all threads: not-null property references a null or transient value : restSecrurity.persistance.Thread.categoryStatus code: 500 | 2024-05-22T12:28:52.850236300
 Error while getting all threads: not-null property references a null or transient value : restSecrurity.persistance.Thread.categoryStatus code: 500 | 2024-05-22T12:29:02.321653400
+Error while deleting postCannot parse null stringStatus code: 500 | 2024-05-23T09:18:35.803272900
+Error while getting all threads: Unrecognized field "user" (class restSecrurity.DTO.ThreadDTO), not marked as ignorable (9 known properties: "roleNames", "posts", "createdDate", "title", "content", "id", "category", "userName", "categoryId"])
+ at [Source: (String)"{
+    "title": "Example Thread Title",
+    "content": "This is an example content for the thread.",
+    "category": 1,
+    "user": "PatrickUser2"
+}"; line: 5, column: 14] (through reference chain: restSecrurity.DTO.ThreadDTO["user"])Status code: 500 | 2024-05-23T12:56:01.061632900
