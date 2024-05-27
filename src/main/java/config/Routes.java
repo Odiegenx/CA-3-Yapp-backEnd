@@ -44,8 +44,8 @@ public class Routes {
                 post("/editPost/{id}", PostController.editPostById(),RoleType.USER);
                 post("/deleteThread/{id}", ThreadController.deleteById(),RoleType.USER,RoleType.ADMIN);
                 post("/deletePost/{id}",PostController.deleteById() ,RoleType.USER,RoleType.ADMIN);
-                post("/createpost",PostController.createPost(),RoleType.USER);
-                post("/createthread",ThreadController.createThread(),RoleType.USER);
+                post("/createPost",PostController.createPost(),RoleType.USER);
+                post("/createThread",ThreadController.createThread(),RoleType.USER);
         };
     }
 
