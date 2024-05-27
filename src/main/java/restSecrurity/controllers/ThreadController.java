@@ -135,4 +135,17 @@ public class ThreadController {
             }
         };
     }
+
+    public Handler getThreadsByUserId(){
+        return ctx -> {
+            try {
+                String id = ctx.pathParam("id");
+                List<ThreadDTO> threadsDTOS = threadDAO.getByUserId(id);
+                ctx.json(threadsDTOS);
+            }catch(Exception e){
+                ctx.status(500).attribute("error", e.getMessage());
+                throw new ApiException(500, "Error while getting threads by userId: "+e.getMessage());
+            }
+        };
+    }
 }

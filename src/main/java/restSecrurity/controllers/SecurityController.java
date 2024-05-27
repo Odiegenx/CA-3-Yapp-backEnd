@@ -32,6 +32,14 @@ public class SecurityController {
         return instance;
     }
 
+    public Handler getUserById(){
+        return ctx -> {
+            String id = ctx.pathParam("id");
+            User user = userDAO.getById(id);
+            UserDTO toReturn = new UserDTO(user);
+            ctx.json(toReturn);
+        };
+    }
 
     static ObjectMapper objectMapper = new ObjectMapper();
     public Handler authenticate() {
