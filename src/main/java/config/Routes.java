@@ -1,5 +1,6 @@
 package config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.javalin.apibuilder.EndpointGroup;
 import io.javalin.security.RouteRole;
 import restSecrurity.controllers.*;
@@ -15,6 +16,8 @@ public class Routes {
     private static ReplyController replyController;
     private static ThreadController threadController;
 
+    private static final ObjectMapper objectMapper = new ObjectMapper();
+
 
     public static EndpointGroup setRoutes(boolean isTest){
         return () -> {
@@ -24,7 +27,7 @@ public class Routes {
             replyController = ReplyController.getInstance(isTest);
             threadController = ThreadController.getInstance(isTest);
 
-            get("/", (ctx) -> ctx.json("Successfully Connected to Yapp"), RoleType.ANYONE);
+            get("/", (ctx) -> ctx.json(objectMapper.createObjectNode().put("Message", "Connected Successfully to YAPP API")), RoleType.ANYONE);
             path("/security", getSecurityRoutes());
             path("/protected",getProtectedRoutes());
             path("/public", getPublicRoutes());
