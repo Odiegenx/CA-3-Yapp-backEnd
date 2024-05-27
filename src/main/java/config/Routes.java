@@ -24,6 +24,7 @@ public class Routes {
             replyController = ReplyController.getInstance(isTest);
             threadController = ThreadController.getInstance(isTest);
 
+            get("/", (ctx) -> ctx.json("Successfully Connected to Yapp"));
             path("/security", getSecurityRoutes());
             path("/protected",getProtectedRoutes());
             path("/public", getPublicRoutes());
