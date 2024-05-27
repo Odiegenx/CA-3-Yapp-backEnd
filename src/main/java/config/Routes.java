@@ -56,6 +56,7 @@ public class Routes {
                  get("/sortThreadByCategory/{category}", threadController.getByThreadsCategory() , RoleType.ANYONE);
                  get("/getThreads", threadController.getThreads(), RoleType.ANYONE);
                  get("/getCategories", categoryController.getAllCategories(), RoleType.ANYONE);
+                 get("/getUserById/{id}", securityController.getUserById(), RoleType.ANYONE);
         };
     }
 

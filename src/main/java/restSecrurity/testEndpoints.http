@@ -20,6 +20,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiO
 ###
 GET http://localhost:7070/api/public/getAllThreads
 ###
+GET http://localhost:7070/api/public/getUserById/patrick@user1.com
+###
 GET http://localhost:7070/api/public/getThreadById/13
 ###
 GET http://localhost:7070/api/public/sortThreadByCategory/General%20Discussion
@@ -65,3 +67,5 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJQYXRyaWNrIiwic3ViIjoiUGF0c
     "content": "this post got edited"
 }
 ###
+
+

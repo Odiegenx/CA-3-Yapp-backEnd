@@ -45,4 +45,15 @@ public class UserDAO extends DAO<User,String> implements iSecurityDAO {
             return user;
         }
     }
+
+    public User getById(String id){
+        User found;
+        try(EntityManager em = emf.createEntityManager()){
+            found = em.find(User.class, id);
+            if(found == null){
+                throw new EntityNotFoundException("No such user");
+            }
+        }
+        return found;
+    }
 }
