@@ -58,3 +58,16 @@ Error while getting all threads: Unrecognized field "user" (class restSecrurity.
     "category": 1,
     "user": "PatrickUser2"
 }"; line: 5, column: 14] (through reference chain: restSecrurity.DTO.ThreadDTO["user"])Status code: 500 | 2024-05-23T12:56:01.061632900
+unable to create new postUnrecognized field "parentReplyI" (class restSecrurity.DTO.PostDTO), not marked as ignorable (8 known properties: "threadId", "createdDate", "replies", "content", "id", "replyId", "userName", "parentReplyId"])
+ at [Source: (String)"{"content":"hhhj","userName":"","replyId":null,"parentReplyI":null}"; line: 1, column: 67] (through reference chain: restSecrurity.DTO.PostDTO["parentReplyI"])Status code: 500 | 2024-05-27T12:58:22.454525800
+unable to create new postUnrecognized field "parentReplyI" (class restSecrurity.DTO.PostDTO), not marked as ignorable (8 known properties: "threadId", "createdDate", "replies", "content", "id", "replyId", "userName", "parentReplyId"])
+ at [Source: (String)"{"content":"jhhjh","userName":"","replyId":null,"parentReplyI":null}"; line: 1, column: 68] (through reference chain: restSecrurity.DTO.PostDTO["parentReplyI"])Status code: 500 | 2024-05-27T12:59:54.869746200
+unable to create new postid to load is required for loadingStatus code: 500 | 2024-05-27T13:06:08.646868300
+unable to create new postid to load is required for loadingStatus code: 500 | 2024-05-27T13:12:21.762489400
+unable to create new postid to load is required for loadingStatus code: 500 | 2024-05-27T13:12:32.525947800
+unable to create new postid to load is required for loadingStatus code: 500 | 2024-05-27T13:13:37.375850200
+unable to create new postid to load is required for loadingStatus code: 500 | 2024-05-27T13:20:12.498238700
+unable to create new postid to load is required for loadingStatus code: 500 | 2024-05-27T13:20:21.957357300
+unable to create new postid to load is required for loadingStatus code: 500 | 2024-05-27T13:26:37.593715
+unable to create new postid to load is required for loadingStatus code: 500 | 2024-05-27T13:28:23.552606
+unable to create new postid to load is required for loadingStatus code: 500 | 2024-05-27T13:28:47.444999200

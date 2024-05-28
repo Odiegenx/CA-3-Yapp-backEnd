@@ -15,8 +15,10 @@ import restSecrurity.persistance.Thread;
 import restSecrurity.persistance.User;
 import utills.Updater;
 
+import java.util.List;
+
 public class PostController {
-    private static iDAO<Post, Integer> postDAO;
+    private static PostDAO postDAO;
     private static iDAO<Thread, Integer> threadDAO;
     private static iDAO<User, String> userDAO;
     private static iDAO<Reply, Integer> replyDAO;
@@ -43,13 +45,13 @@ public class PostController {
                 int id = Integer.parseInt(ctx.pathParam("id"));
                 PostDTO toUpdateWithDTO = ctx.bodyAsClass(PostDTO.class);
                 Post toUpdateFrom = postDAO.getById(id);
-                Post toUpdate = Updater.updateFromDTO(toUpdateFrom,toUpdateWithDTO);
+                Post toUpdate = Updater.updateFromDTO(toUpdateFrom, toUpdateWithDTO);
                 Post updated = postDAO.update(toUpdate, id);
                 PostDTO updatedThreadDTO = new PostDTO(updated);
                 ctx.json(updatedThreadDTO);
-            }catch (Exception e) {
+            } catch (Exception e) {
                 ctx.status(500);
-                ctx.json(new ApiException(500, "Error while editing post" + e.getMessage()));
+                ctx.json(new ApiException(500, "Error while editing post: " + e.getMessage()));
             }
         };
     }
@@ -61,9 +63,9 @@ public class PostController {
                 Post deleted = postDAO.delete(id);
                 PostDTO deletedPostDTO = new PostDTO(deleted);
                 ctx.json(deletedPostDTO);
-            }catch(Exception e) {
+            } catch (Exception e) {
                 ctx.status(500);
-                throw new ApiException(500, "Error while deleting post" + e.getMessage());
+                throw new ApiException(500, "Error while deleting post: " + e.getMessage());
             }
         };
     }
@@ -72,21 +74,31 @@ public class PostController {
         return ctx -> {
             try {
                 PostDTO toCreateDTO = ctx.bodyAsClass(PostDTO.class);
-
                 User postAuthor = userDAO.getById(toCreateDTO.getUserName());
                 Thread postThread = threadDAO.getById(toCreateDTO.getThreadId());
-                Reply postReply = toCreateDTO.getReplyId() != null ? replyDAO.getById(toCreateDTO.getReplyId()) : null;
-                Reply parentReply = toCreateDTO.getParentReplyId() != null ? replyDAO.getById(toCreateDTO.getParentReplyId()) : null;
 
-                Post toCreate = new Post(toCreateDTO.getContent(), postAuthor, postThread, postReply, parentReply);
-                Post created = postDAO.create(toCreate);
+                if (toCreateDTO.getParentReplyId() == null) {
+                    Post newPost = new Post(toCreateDTO.getContent(), postAuthor, postThread);
+                    Post createdPost = postDAO.create(newPost);
+                    PostDTO postDTO = new PostDTO(createdPost);
+                    ctx.json(postDTO);
+                } else {
+                    Post parentPost = postDAO.getById(toCreateDTO.getParentReplyId());
+                    Reply newReply = new Reply(toCreateDTO.getContent(), parentPost, postAuthor);
+                    replyDAO.create(newReply);
+                    parentPost.addReply(newReply);
+                    postDAO.update(parentPost, parentPost.getId());
 
-                PostDTO postDTO = new PostDTO(created);
-                ctx.json(postDTO);
-            }catch(Exception e) {
+                    Post newPost = new Post(toCreateDTO.getContent(), postAuthor, postThread, parentPost);
+                    Post createdPost = postDAO.create(newPost);
+                    PostDTO postDTO = new PostDTO(createdPost);
+                    ctx.json(postDTO);
+                }
+            } catch (Exception e) {
                 ctx.status(500);
-                throw new ApiException(500,"unable to create new post" + e.getMessage());
+                throw new ApiException(500, "Unable to create new post: " + e.getMessage());
             }
         };
     }
 }
+

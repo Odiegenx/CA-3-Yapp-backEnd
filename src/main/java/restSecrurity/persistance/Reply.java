@@ -6,24 +6,46 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-@Entity
+// Reply.java
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 @Table(name = "replies")
 public class Reply {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToMany(mappedBy = "parentReply", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Post> posts;
+    @Column(nullable = false)
+    private String content;
 
-    @OneToOne(mappedBy = "reply", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Column(nullable = false)
+    private LocalDateTime createdDate;
+
+    @ManyToOne
+    @JoinColumn(name = "parent_post_id", nullable = false)
     private Post parentPost;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    public Reply(String content, Post parentPost, User user) {
+        this.content = content;
+        this.parentPost = parentPost;
+        this.user = user;
+        this.createdDate = LocalDateTime.now();
+    }
 }
+
+
+
 
 

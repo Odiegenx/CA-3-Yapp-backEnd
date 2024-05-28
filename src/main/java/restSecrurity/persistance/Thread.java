@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -38,7 +39,7 @@ public class Thread {
     private Category category;
 
     @OneToMany(mappedBy = "thread", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Post> posts;
+    private Set<Post> posts = new HashSet<>();
 
     public Thread(String title, String content, User user, Category category) {
         this.title = title;

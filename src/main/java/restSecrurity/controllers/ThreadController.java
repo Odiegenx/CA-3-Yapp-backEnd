@@ -1,11 +1,9 @@
 package restSecrurity.controllers;
 
 import io.javalin.http.Handler;
-import restSecrurity.DOA.databaseDAO.CategoryDAO;
-import restSecrurity.DOA.databaseDAO.PostDAO;
-import restSecrurity.DOA.databaseDAO.ThreadDAO;
-import restSecrurity.DOA.databaseDAO.UserDAO;
+import restSecrurity.DOA.databaseDAO.*;
 import restSecrurity.DTO.PostDTO;
+import restSecrurity.DTO.ReplyDTO;
 import restSecrurity.DTO.ThreadDTO;
 import restSecrurity.exceptions.ApiException;
 import restSecrurity.persistance.Category;
@@ -21,6 +19,7 @@ public class ThreadController {
     private static ThreadDAO threadDAO;
     private static PostDAO postDAO;
     private static UserDAO userDAO;
+    private static ReplyDAO replyDAO;
     private static CategoryDAO categoryDAO;
     private static ThreadController instance;
 
@@ -34,6 +33,7 @@ public class ThreadController {
             threadDAO = ThreadDAO.getInstance(isTest);
             postDAO = PostDAO.getInstance(isTest);
             userDAO = UserDAO.getInstance(isTest);
+            replyDAO = ReplyDAO.getInstance(isTest);
             categoryDAO = CategoryDAO.getInstance(isTest);
         }
         return instance;
@@ -113,6 +113,11 @@ public class ThreadController {
                 int id = Integer.parseInt(ctx.pathParam("id"));
                 ThreadDTO threadDTO = new ThreadDTO(threadDAO.getById(id));
                 Set<PostDTO> postDTOset = postDAO.getAllPostsByThreadId(threadDTO.getId());
+
+                for (PostDTO postDTO : postDTOset) {
+                    Set<ReplyDTO> replyDTOs = ReplyDAO.getAllRepliesByPostId(postDTO.getId());
+                    postDTO.setReplies(replyDTOs);
+                }
                 threadDTO.setPosts(postDTOset);
                 ctx.json(threadDTO);
             }catch (NumberFormatException e) {

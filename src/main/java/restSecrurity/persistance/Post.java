@@ -7,12 +7,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
-@Entity
+// Post.java
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 @Table(name = "posts")
 public class Post {
     @Id
@@ -33,22 +36,35 @@ public class Post {
     @JoinColumn(name = "thread_id", nullable = false)
     private Thread thread;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "reply_id")
-    private Reply reply;
+    @OneToMany(mappedBy = "parentPost", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Reply> replies = new HashSet<>();
 
-    @ManyToOne
-    @JoinColumn(name = "parent_reply_id")
-    private Reply parentReply;
-
-    public Post(String content, User user, Thread thread, Reply reply, Reply parentReply) {
+    public Post(String content, User user, Thread thread) {
         this.content = content;
         this.user = user;
         this.thread = thread;
-        this.reply = reply;
-        this.parentReply = parentReply;
         this.createdDate = LocalDateTime.now();
     }
+
+    public Post(String content, User user, Thread thread, Post parentPost) {
+        this(content, user, thread);
+        if (parentPost != null) {
+            parentPost.addReply(new Reply(content, parentPost, user));
+        }
+    }
+
+    public void addReply(Reply reply) {
+        if (reply != null) {
+            if (this.replies == null) {
+                this.replies = new HashSet<>();
+            }
+            this.replies.add(reply);
+            reply.setParentPost(this);
+        }
+    }
 }
+
+
+
 
 

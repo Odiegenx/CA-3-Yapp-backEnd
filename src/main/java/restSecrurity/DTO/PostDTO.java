@@ -4,8 +4,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import restSecrurity.persistance.Post;
+import restSecrurity.persistance.Reply;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -16,8 +20,9 @@ public class PostDTO {
     private LocalDateTime createdDate;
     private String userName;
     private Integer threadId;
-    private Integer replyId;
-    private Integer parentReplyId;
+    private Integer parentReplyId; // Updated to reflect parent reply
+
+    private Set<ReplyDTO> replies = new HashSet<>();
 
     public PostDTO(Post post) {
         this.id = post.getId();
@@ -25,7 +30,13 @@ public class PostDTO {
         this.createdDate = post.getCreatedDate();
         this.userName = post.getUser().getUsername();
         this.threadId = post.getThread().getId();
-        this.replyId = post.getReply() != null ? post.getReply().getId() : null;
-        this.parentReplyId = post.getParentReply() != null ? post.getParentReply().getId() : null;
+
+        for (Reply reply : post.getReplies()) {
+            this.replies.add(new ReplyDTO(reply));
+        }
+    }
+
+    public void addReply(ReplyDTO reply) {
+        this.replies.add(reply);
     }
 }
