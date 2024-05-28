@@ -1,5 +1,6 @@
 package config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.javalin.apibuilder.EndpointGroup;
 import io.javalin.security.RouteRole;
 import restSecrurity.controllers.*;
@@ -15,6 +16,8 @@ public class Routes {
     private static ReplyController replyController;
     private static ThreadController threadController;
 
+    private static final ObjectMapper objectMapper = new ObjectMapper();
+
 
     public static EndpointGroup setRoutes(boolean isTest){
         return () -> {
@@ -24,6 +27,7 @@ public class Routes {
             replyController = ReplyController.getInstance(isTest);
             threadController = ThreadController.getInstance(isTest);
 
+            get("/", (ctx) -> ctx.json(objectMapper.createObjectNode().put("Message", "Connected Successfully to YAPP API")), RoleType.ANYONE);
             path("/security", getSecurityRoutes());
             path("/protected",getProtectedRoutes());
             path("/public", getPublicRoutes());
@@ -44,8 +48,8 @@ public class Routes {
                 post("/editPost/{id}", PostController.editPostById(),RoleType.USER);
                 post("/deleteThread/{id}", ThreadController.deleteById(),RoleType.USER,RoleType.ADMIN);
                 post("/deletePost/{id}",PostController.deleteById() ,RoleType.USER,RoleType.ADMIN);
-                post("/createpost",PostController.createPost(),RoleType.USER);
-                post("/createthread",ThreadController.createThread(),RoleType.USER);
+                post("/createPost",PostController.createPost(),RoleType.USER);
+                post("/createThread",ThreadController.createThread(),RoleType.USER);
         };
     }
 
@@ -56,6 +60,8 @@ public class Routes {
                  get("/sortThreadByCategory/{category}", threadController.getByThreadsCategory() , RoleType.ANYONE);
                  get("/getThreads", threadController.getThreads(), RoleType.ANYONE);
                  get("/getCategories", categoryController.getAllCategories(), RoleType.ANYONE);
+                 get("/getUserById/{id}", securityController.getUserById(), RoleType.ANYONE);
+                 get("/getThreadsByUserId/{id}", threadController.getThreadsByUserId(), RoleType.ANYONE);
         };
     }
 
