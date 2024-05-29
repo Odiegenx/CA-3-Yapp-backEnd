@@ -48,7 +48,7 @@ public class Routes {
                 post("/editPost/{id}", PostController.editPostById(),RoleType.USER);
                 post("/deleteThread/{id}", ThreadController.deleteById(),RoleType.USER,RoleType.ADMIN);
                 post("/deletePost/{id}",PostController.deleteById() ,RoleType.USER,RoleType.ADMIN);
-                post("/createPost",PostController.createPost(),RoleType.USER);
+                post("/createPost",PostController.createPost(),RoleType.USER,RoleType.ANYONE);
                 post("/createThread",ThreadController.createThread(),RoleType.USER);
         };
     }
@@ -62,6 +62,7 @@ public class Routes {
                  get("/getCategories", categoryController.getAllCategories(), RoleType.ANYONE);
                  get("/getUserById/{id}", securityController.getUserById(), RoleType.ANYONE);
                  get("/getThreadsByUserId/{id}", threadController.getThreadsByUserId(), RoleType.ANYONE);
+                 get("/getPostsByUserId/{id}", postController.getPostsByUserId(), RoleType.ANYONE);
         };
     }
 

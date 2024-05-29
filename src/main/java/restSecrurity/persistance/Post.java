@@ -36,7 +36,7 @@ public class Post {
     @JoinColumn(name = "thread_id", nullable = false)
     private Thread thread;
 
-    @OneToMany(mappedBy = "parentPost", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "parentPost", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
     private Set<Reply> replies = new HashSet<>();
 
     public Post(String content, User user, Thread thread) {

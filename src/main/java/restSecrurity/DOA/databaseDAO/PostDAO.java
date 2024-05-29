@@ -5,9 +5,11 @@ import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import restSecrurity.DTO.PostDTO;
 import restSecrurity.DTO.ReplyDTO;
+import restSecrurity.DTO.ThreadDTO;
 import restSecrurity.exceptions.ApiException;
 import restSecrurity.persistance.Category;
 import restSecrurity.persistance.Post;
+import restSecrurity.persistance.Thread;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -45,6 +47,19 @@ public class PostDAO extends DAO<Post,Integer> {
             return result;
         }catch (Exception e){
             throw new ApiException(500,"No posts was found");
+        }
+    }
+
+
+    public List<PostDTO> getByUserId(String id) throws ApiException {
+        try(var em = emf.createEntityManager()) {
+            TypedQuery<Post> query = em.createQuery("SELECT p FROM Post p WHERE p.user.id = :id", Post.class);
+            query.setParameter("id", id);
+            List<Post> posts = query.getResultList();
+            List<PostDTO> postDTOS = posts.stream().map(PostDTO::new).toList();
+            return postDTOS;
+        }catch(Exception e){
+            throw new ApiException(500, "Error while getting posts by userID: "+e.getMessage());
         }
     }
 }

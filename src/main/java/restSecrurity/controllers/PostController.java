@@ -1,6 +1,7 @@
 package restSecrurity.controllers;
 
 import io.javalin.http.Handler;
+import org.hibernate.Hibernate;
 import restSecrurity.DOA.databaseDAO.PostDAO;
 import restSecrurity.DOA.databaseDAO.ReplyDAO;
 import restSecrurity.DOA.databaseDAO.ThreadDAO;
@@ -19,7 +20,7 @@ import java.util.List;
 
 public class PostController {
     private static PostDAO postDAO;
-    private static iDAO<Thread, Integer> threadDAO;
+    private static ThreadDAO threadDAO;
     private static iDAO<User, String> userDAO;
     private static iDAO<Reply, Integer> replyDAO;
     private static PostController instance;
@@ -86,6 +87,8 @@ public class PostController {
                     Post parentPost = postDAO.getById(toCreateDTO.getParentReplyId());
                     Reply newReply = new Reply(toCreateDTO.getContent(), parentPost, postAuthor);
                     replyDAO.create(newReply);
+                    Hibernate.initialize(parentPost.getReplies());
+
                     parentPost.addReply(newReply);
                     postDAO.update(parentPost, parentPost.getId());
 
@@ -97,6 +100,19 @@ public class PostController {
             } catch (Exception e) {
                 ctx.status(500);
                 throw new ApiException(500, "Unable to create new post: " + e.getMessage());
+            }
+        };
+    }
+
+    public static Handler getPostsByUserId() {
+        return ctx -> {
+            try {
+                String id = ctx.pathParam("id");
+                List<PostDTO> postDTOS = postDAO.getByUserId(id);
+                ctx.json(postDTOS);
+            }catch(Exception e){
+                ctx.status(500).attribute("error", e.getMessage());
+                throw new ApiException(500, "Error while getting posts by userId: "+e.getMessage());
             }
         };
     }
