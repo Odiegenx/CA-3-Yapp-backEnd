@@ -44,10 +44,11 @@ public class Routes {
     private static EndpointGroup getProtectedRoutes(){
         return () -> {
                 before(SecurityController::authenticate);
-                post("/editThread/{id}", ThreadController.editThreadById(),RoleType.USER);
-                post("/editPost/{id}", PostController.editPostById(),RoleType.USER);
-                post("/deleteThread/{id}", ThreadController.deleteById(),RoleType.USER,RoleType.ADMIN);
-                post("/deletePost/{id}",PostController.deleteById() ,RoleType.USER,RoleType.ADMIN);
+                put("/editThread/{id}", ThreadController.editThreadById(),RoleType.USER);
+                put("/editPost/{id}", PostController.editPostById(),RoleType.USER);
+                put("/editReply/{id}", replyController.editReplyById(),RoleType.USER);
+                delete("/deleteThread/{id}", ThreadController.deleteById(),RoleType.USER,RoleType.ADMIN);
+                delete("/deletePost/{id}",PostController.deleteById() ,RoleType.USER,RoleType.ADMIN);
                 post("/createPost",PostController.createPost(),RoleType.USER,RoleType.ANYONE);
                 post("/createThread",ThreadController.createThread(),RoleType.USER);
         };

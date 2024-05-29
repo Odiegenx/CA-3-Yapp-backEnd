@@ -1,5 +1,6 @@
 package restSecrurity.controllers;
 
+import io.javalin.http.Handler;
 import restSecrurity.DOA.databaseDAO.ReplyDAO;
 import restSecrurity.DOA.databaseDAO.ThreadDAO;
 import restSecrurity.DOA.iDAO;
@@ -20,5 +21,11 @@ public class ReplyController {
             replyDAO = ReplyDAO.getInstance(isTest);
         }
         return instance;
+    }
+
+    public Handler editReplyById() {
+        return ctx -> {
+            
+        };
     }
 }
