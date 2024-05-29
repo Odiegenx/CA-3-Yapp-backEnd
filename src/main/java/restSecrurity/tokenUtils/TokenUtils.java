@@ -46,6 +46,7 @@ public class TokenUtils {
                     .issuer(ISSUER)
                     .claim("username",user.getUsername())
                     .claim("roles",user.getRoles().stream().reduce((s1,s2) -> s1 +","+s2).get())
+                    .claim("email",user.getEmail())
                     .expirationTime(new Date(new Date().getTime()+Integer.parseInt(TOKEN_EXPIRE_TIME)))
                     .build();
             Payload payload = new Payload(claimsSet.toJSONObject());

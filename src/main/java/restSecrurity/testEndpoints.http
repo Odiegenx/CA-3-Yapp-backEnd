@@ -10,7 +10,7 @@ POST http://localhost:7070/api/security/auth/register
 POST http://localhost:7070/api/security/auth/login
 
 {
-    "username": "PatrickUser2",
+    "username": "PatrickUser3",
     "password": "1234"
 }
 
@@ -24,7 +24,7 @@ GET http://localhost:7070/api/public/getUserById/patrick@user1.com
 ###
 GET http://localhost:7070/api/public/getThreadsByUserId/patrick@user1.com
 ###
-GET http://localhost:7070/api/public/getThreadById/13
+GET http://localhost:7070/api/public/getThreadById/1
 ###
 GET http://localhost:7070/api/public/sortThreadByCategory/General%20Discussion
 ###
