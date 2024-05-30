@@ -49,8 +49,10 @@ public class Routes {
                 put("/editReply/{id}", replyController.editReplyById(),RoleType.USER);
                 delete("/deleteThread/{id}", ThreadController.deleteById(),RoleType.USER,RoleType.ADMIN);
                 delete("/deletePost/{id}",PostController.deleteById() ,RoleType.USER,RoleType.ADMIN);
-                post("/createPost",PostController.createPost(),RoleType.USER,RoleType.ANYONE);
+                delete("/deleteReply/{id}",ReplyController.deleteReplyById() ,RoleType.USER,RoleType.ADMIN);
+                post("/createPost",PostController.createPost(),RoleType.USER);
                 post("/createThread",ThreadController.createThread(),RoleType.USER);
+                post("/createReply",replyController.createReply(),RoleType.USER);
         };
     }
 

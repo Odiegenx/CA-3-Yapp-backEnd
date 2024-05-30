@@ -32,29 +32,36 @@ GET http://localhost:7070/api/public/getUserById/patrick@user1.com
 ###
 GET http://localhost:7070/api/public/getThreadsByUserId/patrick@user1.com
 ###
-GET http://localhost:7070/api/public/getThreadById/1
+GET http://localhost:7070/api/public/getThreadById/4
 ###
 GET http://localhost:7070/api/public/sortThreadByCategory/General%20Discussion
 ###
-POST http://localhost:7070/api/protected/createpost
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJQYXRyaWNrIiwic3ViIjoiUGF0cmlja1VzZXIyIiwiZXhwIjoxNzE2NDYzMTE3LCJyb2xlcyI6InVzZXIiLCJ1c2VybmFtZSI6IlBhdHJpY2tVc2VyMiJ9.1Hy61viKFkLrnlrKXhd5iB1IGPbj1cA0NbISAuWro-0
+POST http://localhost:7070/api/protected/createPost
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJQYXRyaWNrIiwic3ViIjoiUGF0cmlja1VzZXIzIiwiZXhwIjoxNzE3MDY3Mzg5LCJlbWFpbCI6InRlc3RAZW1haWwuY29tIiwicm9sZXMiOiJ1c2VyIiwidXNlcm5hbWUiOiJQYXRyaWNrVXNlcjMifQ.5O5OHoe7PYOUnMCzVvEVDTiqK_nKfhER_A4UPmFymLY
 
 {
     "content": "This is an example post content.",
-    "userName": "PatrickUser2",
-    "threadId": 3,
-    "replyId": null,
-    "parentReplyId": null
+    "userName": "PatrickUser3",
+    "threadId": 4
 }
 ###
-POST http://localhost:7070/api/protected/createthread
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJQYXRyaWNrIiwic3ViIjoiUGF0cmlja1VzZXIyIiwiZXhwIjoxNzE2NDYzMTE3LCJyb2xlcyI6InVzZXIiLCJ1c2VybmFtZSI6IlBhdHJpY2tVc2VyMiJ9.1Hy61viKFkLrnlrKXhd5iB1IGPbj1cA0NbISAuWro-0
+POST http://localhost:7070/api/protected/createThread
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJQYXRyaWNrIiwic3ViIjoiUGF0cmlja1VzZXIzIiwiZXhwIjoxNzE3MDY3Mzg5LCJlbWFpbCI6InRlc3RAZW1haWwuY29tIiwicm9sZXMiOiJ1c2VyIiwidXNlcm5hbWUiOiJQYXRyaWNrVXNlcjMifQ.5O5OHoe7PYOUnMCzVvEVDTiqK_nKfhER_A4UPmFymLY
 
 {
-    "title": "Example Thread Title",
+    "title": "for tests",
     "content": "This is an example content for the thread.",
     "category": 1,
-    "userName": "PatrickUser2"
+    "userName": "PatrickUser3"
+}
+###
+POST http://localhost:7070/api/protected/createReply
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJQYXRyaWNrIiwic3ViIjoiUGF0cmlja1VzZXIzIiwiZXhwIjoxNzE3MDY3Mzg5LCJlbWFpbCI6InRlc3RAZW1haWwuY29tIiwicm9sZXMiOiJ1c2VyIiwidXNlcm5hbWUiOiJQYXRyaWNrVXNlcjMifQ.5O5OHoe7PYOUnMCzVvEVDTiqK_nKfhER_A4UPmFymLY
+
+{
+    "content": "newReply!",
+    "userName": "PatrickUser3",
+    "parentPostId": 33
 }
 ###
 POST http://localhost:7070/api/protected/deleteThread/3

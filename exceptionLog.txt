@@ -90,3 +90,44 @@ Unable to create new post: id to load is required for loadingStatus code: 500 | 
 Unable to create new post: id to load is required for loadingStatus code: 500 | 2024-05-28T12:27:04.536492
 Unable to create new post: id to load is required for loadingStatus code: 500 | 2024-05-28T12:29:06.705901600
 Unable to create new post: id to load is required for loadingStatus code: 500 | 2024-05-28T12:32:13.247081700
+Error while getting all threads: No such userStatus code: 500 | 2024-05-30T12:40:09.172461600
+Unable to create new post: Unrecognized token 'newReply': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
+ at [Source: (String)"{
+    "content": newReply!,
+    "userName": PatrickUser3,
+    "threadId": 3,
+    "parentReplyId": 31
+}"; line: 2, column: 24]Status code: 500 | 2024-05-30T12:41:41.869115200
+Unable to create new post: Unrecognized field "threadId" (class restSecrurity.DTO.ReplyDTO), not marked as ignorable (5 known properties: "content", "id", "parentPostId", "createdDate", "userName"])
+ at [Source: (String)"{
+    "content": "newReply!",
+    "userName": "PatrickUser3",
+    "threadId": 3,
+    "parentReplyId": 33
+}"; line: 4, column: 18] (through reference chain: restSecrurity.DTO.ReplyDTO["threadId"])Status code: 500 | 2024-05-30T12:49:56.791847700
+Unable to create new post: Unrecognized field "threadId" (class restSecrurity.DTO.ReplyDTO), not marked as ignorable (5 known properties: "content", "id", "parentPostId", "createdDate", "userName"])
+ at [Source: (String)"{
+    "content": "newReply!",
+    "userName": "PatrickUser3",
+    "threadId": 3,
+    "parentReplyId": 33
+}"; line: 4, column: 18] (through reference chain: restSecrurity.DTO.ReplyDTO["threadId"])Status code: 500 | 2024-05-30T12:50:23.139676100
+Unable to create new post: Unrecognized field "threadId" (class restSecrurity.DTO.ReplyDTO), not marked as ignorable (5 known properties: "content", "id", "parentPostId", "createdDate", "userName"])
+ at [Source: (String)"{
+    "content": "newReply!",
+    "userName": "PatrickUser3",
+    "threadId": 3,
+    "parentReplyId": 33
+}"; line: 4, column: 18] (through reference chain: restSecrurity.DTO.ReplyDTO["threadId"])Status code: 500 | 2024-05-30T12:52:08.577143100
+Unable to create new post: Unrecognized field "parentReplyId" (class restSecrurity.DTO.ReplyDTO), not marked as ignorable (5 known properties: "content", "id", "parentPostId", "createdDate", "userName"])
+ at [Source: (String)"{
+    "content": "newReply!",
+    "userName": "PatrickUser3",
+    "parentReplyId": 33
+}"; line: 4, column: 24] (through reference chain: restSecrurity.DTO.ReplyDTO["parentReplyId"])Status code: 500 | 2024-05-30T12:52:08.581143
+Unable to create new post: Unrecognized field "parentReplyId" (class restSecrurity.DTO.ReplyDTO), not marked as ignorable (5 known properties: "content", "id", "parentPostId", "createdDate", "userName"])
+ at [Source: (String)"{
+    "content": "newReply!",
+    "userName": "PatrickUser3",
+    "parentReplyId": 33
+}"; line: 4, column: 24] (through reference chain: restSecrurity.DTO.ReplyDTO["parentReplyId"])Status code: 500 | 2024-05-30T12:52:54.522735700

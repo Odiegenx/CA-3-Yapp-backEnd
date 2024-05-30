@@ -1,14 +1,7 @@
 package restSecrurity;
 
 import config.ApplicationConfig;
-import config.HibernateConfig;
 import config.Routes;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import restSecrurity.DOA.memoryDAO.DudeMemoryDAO;
-import restSecrurity.exceptions.ApiException;
-import restSecrurity.model.Dude;
-import utills.Populator;
 
 public class Main {
     public static void main(String[] args) {

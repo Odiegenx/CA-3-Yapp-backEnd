@@ -78,25 +78,11 @@ public class PostController {
                 User postAuthor = userDAO.getById(toCreateDTO.getUserName());
                 Thread postThread = threadDAO.getById(toCreateDTO.getThreadId());
 
-                if (toCreateDTO.getParentReplyId() == null) {
-                    Post newPost = new Post(toCreateDTO.getContent(), postAuthor, postThread);
-                    Post createdPost = postDAO.create(newPost);
-                    PostDTO postDTO = new PostDTO(createdPost);
-                    ctx.json(postDTO);
-                } else {
-                    Post parentPost = postDAO.getById(toCreateDTO.getParentReplyId());
-                    Reply newReply = new Reply(toCreateDTO.getContent(), parentPost, postAuthor);
-                    replyDAO.create(newReply);
-                    Hibernate.initialize(parentPost.getReplies());
+                Post newPost = new Post(toCreateDTO.getContent(), postAuthor, postThread);
+                Post createdPost = postDAO.create(newPost);
+                PostDTO postDTO = new PostDTO(createdPost);
+                ctx.json(postDTO);
 
-                    parentPost.addReply(newReply);
-                    postDAO.update(parentPost, parentPost.getId());
-
-                    Post newPost = new Post(toCreateDTO.getContent(), postAuthor, postThread, parentPost);
-                    Post createdPost = postDAO.create(newPost);
-                    PostDTO postDTO = new PostDTO(createdPost);
-                    ctx.json(postDTO);
-                }
             } catch (Exception e) {
                 ctx.status(500);
                 throw new ApiException(500, "Unable to create new post: " + e.getMessage());
