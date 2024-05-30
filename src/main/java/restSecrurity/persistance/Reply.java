@@ -29,7 +29,7 @@ public class Reply {
     @Column(nullable = false)
     private LocalDateTime createdDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "parent_post_id", nullable = false)
     private Post parentPost;
 

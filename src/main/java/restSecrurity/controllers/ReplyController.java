@@ -43,8 +43,11 @@ public class ReplyController {
         return ctx -> {
             try {
                 int id = Integer.parseInt(ctx.pathParam("id"));
-                Reply deleted = replyDAO.delete(id);
-                ReplyDTO deletedReplyDTO = new ReplyDTO(deleted);
+                Reply toBeDeleted = replyDAO.getById(id);
+                Post post = postDAO.getById(toBeDeleted.getParentPost().getId());
+                post.getReplies().removeIf(r -> r.getId() == id);
+                Post updatedPost = postDAO.update(post, post.getId());
+                ReplyDTO deletedReplyDTO = new ReplyDTO(toBeDeleted);
                 ctx.json(deletedReplyDTO);
             } catch (Exception e) {
                 ctx.status(500);
