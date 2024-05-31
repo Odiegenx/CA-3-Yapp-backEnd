@@ -57,7 +57,7 @@ public class ThreadDAO extends DAO<Thread,Integer> {
 
     public List<ThreadDTO> getByUserId(String id) throws ApiException{
         try(var em = emf.createEntityManager()) {
-            TypedQuery<Thread> query = em.createQuery("SELECT t FROM Thread t WHERE t.user.id = :id", Thread.class);
+            TypedQuery<Thread> query = em.createQuery("SELECT t FROM Thread t WHERE t.user.id = :id ORDER BY t.createdDate DESC", Thread.class);
             query.setParameter("id", id);
             List<Thread> threads = query.getResultList();
             List<ThreadDTO> threadDTOS = threads.stream().map(ThreadDTO::new).toList();
@@ -66,4 +66,13 @@ public class ThreadDAO extends DAO<Thread,Integer> {
             throw new ApiException(500, "Error while getting threads by userID: "+e.getMessage());
         }
     }
+    @Override
+    public List<Thread> getAll() {
+        try(EntityManager em = emf.createEntityManager()) {
+            TypedQuery<Thread> query = em.createQuery("SELECT t FROM Thread t ORDER BY t.createdDate DESC", Thread.class);
+            List<Thread> queryList = query.getResultList();
+            return queryList;
+        }
+    }
+
 }

@@ -34,7 +34,7 @@ public class PostDAO extends DAO<Post,Integer> {
     public Set<PostDTO> getAllPostsByThreadId(int id) throws ApiException {
         try (EntityManager em = emf.createEntityManager()) {
             Set<PostDTO> result = new HashSet<>();
-            TypedQuery<Post> query = em.createQuery("SELECT p FROM Post p WHERE p.thread.id = :threadId", Post.class);
+            TypedQuery<Post> query = em.createQuery("SELECT p FROM Post p WHERE p.thread.id = :threadId ORDER BY p.createdDate DESC", Post.class);
             query.setParameter("threadId", id);
             List<Post> mainPosts = query.getResultList();
 
@@ -53,7 +53,7 @@ public class PostDAO extends DAO<Post,Integer> {
 
     public List<PostDTO> getByUserId(String id) throws ApiException {
         try(var em = emf.createEntityManager()) {
-            TypedQuery<Post> query = em.createQuery("SELECT p FROM Post p WHERE p.user.id = :id", Post.class);
+            TypedQuery<Post> query = em.createQuery("SELECT p FROM Post p WHERE p.user.id = :id ORDER BY p.createdDate DESC", Post.class);
             query.setParameter("id", id);
             List<Post> posts = query.getResultList();
             List<PostDTO> postDTOS = posts.stream().map(PostDTO::new).toList();
