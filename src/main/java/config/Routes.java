@@ -44,15 +44,15 @@ public class Routes {
     private static EndpointGroup getProtectedRoutes(){
         return () -> {
                 before(SecurityController::authenticate);
-                put("/editThread/{id}", ThreadController.editThreadById(),RoleType.USER);
-                put("/editPost/{id}", PostController.editPostById(),RoleType.USER);
-                put("/editReply/{id}", replyController.editReplyById(),RoleType.USER);
+                put("/editThread/{id}", ThreadController.editThreadById(),RoleType.USER,RoleType.ADMIN);
+                put("/editPost/{id}", PostController.editPostById(),RoleType.USER,RoleType.ADMIN);
+                put("/editReply/{id}", replyController.editReplyById(),RoleType.USER,RoleType.ADMIN);
                 delete("/deleteThread/{id}", ThreadController.deleteById(),RoleType.USER,RoleType.ADMIN);
                 delete("/deletePost/{id}",PostController.deleteById() ,RoleType.USER,RoleType.ADMIN);
                 delete("/deleteReply/{id}",ReplyController.deleteReplyById() ,RoleType.USER,RoleType.ADMIN);
-                post("/createPost",PostController.createPost(),RoleType.USER);
-                post("/createThread",ThreadController.createThread(),RoleType.USER);
-                post("/createReply",replyController.createReply(),RoleType.USER);
+                post("/createPost",PostController.createPost(),RoleType.USER,RoleType.ADMIN);
+                post("/createThread",ThreadController.createThread(),RoleType.USER,RoleType.ADMIN);
+                post("/createReply",replyController.createReply(),RoleType.USER,RoleType.ADMIN);
         };
     }
 
@@ -63,9 +63,9 @@ public class Routes {
                  get("/sortThreadByCategory/{category}", threadController.getByThreadsCategory() , RoleType.ANYONE);
                  get("/getThreads", threadController.getThreads(), RoleType.ANYONE);
                  get("/getCategories", categoryController.getAllCategories(), RoleType.ANYONE);
-                 get("/getUserById/{id}", securityController.getUserById(), RoleType.ANYONE);
-                 get("/getThreadsByUserId/{id}", threadController.getThreadsByUserId(), RoleType.ANYONE);
-                 get("/getPostsByUserId/{id}", postController.getPostsByUserId(), RoleType.ANYONE);
+                 get("/getUserById/{id}", securityController.getUserById(), RoleType.USER,RoleType.ADMIN);
+                 get("/getThreadsByUserId/{id}", threadController.getThreadsByUserId(), RoleType.USER,RoleType.ADMIN);
+                 get("/getPostsByUserId/{id}", postController.getPostsByUserId(),RoleType.ANYONE);
         };
     }
 
