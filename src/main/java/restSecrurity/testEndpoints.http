@@ -32,7 +32,9 @@ GET http://localhost:7070/api/public/getUserById/patrick@user1.com
 ###
 GET http://localhost:7070/api/public/getThreadsByUserId/patrick@user1.com
 ###
-GET http://localhost:7070/api/public/getThreadById/4
+GET http://localhost:7070/api/public/getThreadById/1
+###
+GET http://localhost:7070/api/public/getThreadById/1
 ###
 GET http://localhost:7070/api/public/sortThreadByCategory/General%20Discussion
 ###
@@ -46,7 +48,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJQYXRyaWNrIiwic3ViIjoiUGF0c
 }
 ###
 POST http://localhost:7070/api/protected/createThread
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJQYXRyaWNrIiwic3ViIjoiUGF0cmlja1VzZXIzIiwiZXhwIjoxNzE3MDY3Mzg5LCJlbWFpbCI6InRlc3RAZW1haWwuY29tIiwicm9sZXMiOiJ1c2VyIiwidXNlcm5hbWUiOiJQYXRyaWNrVXNlcjMifQ.5O5OHoe7PYOUnMCzVvEVDTiqK_nKfhER_A4UPmFymLY
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJQYXRyaWNrIiwic3ViIjoiUGF0cmlja1VzZXIzIiwiZXhwIjoxNzE3MTg5Mzg5LCJlbWFpbCI6InRlc3RAZW1haWwuY29tIiwicm9sZXMiOiJ1c2VyIiwidXNlcm5hbWUiOiJQYXRyaWNrVXNlcjMifQ.qzqUUJ8pvU1gJZGNoNeuB9Pqp1703AdWj6NE3f1l6yk
 
 {
     "title": "for tests",
