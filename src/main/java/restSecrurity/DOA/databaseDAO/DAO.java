@@ -55,7 +55,7 @@ public abstract class DAO<T, D> implements iDAO<T,D> {
     }
     public List<T> getAll() {
         try(EntityManager em = emf.createEntityManager()) {
-            TypedQuery<T> query = em.createQuery("SELECT h from "+objectClass.getSimpleName()+" h",objectClass);
+            TypedQuery<T> query = em.createQuery("SELECT h from "+objectClass.getSimpleName()+" h ORDER BY h.createdDate DESC",objectClass);
             List<T> queryList = query.getResultList();
             return queryList;
         }
