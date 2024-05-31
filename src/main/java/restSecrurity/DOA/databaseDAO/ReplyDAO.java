@@ -27,7 +27,7 @@ public class ReplyDAO extends DAO<Reply,Integer> {
     public static Set<ReplyDTO> getAllRepliesByPostId(int postId) {
         try (EntityManager em = emf.createEntityManager()) {
             TypedQuery<Reply> query = em.createQuery(
-                    "SELECT r FROM Reply r WHERE r.parentPost.id = :postId ORDER BY r.createdDate DESC",
+                    "SELECT r FROM Reply r WHERE r.parentPost.id = :postId",
                     Reply.class
             );
             query.setParameter("postId", postId);
